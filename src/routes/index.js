@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const authhRoutes = require('./authRoutes');
+const authRoutes = require('./authRoutes');
 const autenticar = require('../middlewares/auth');
 
-router.use('/auth', authhRoutes);
+router.use('/auth', authRoutes);
 
 router.get('/', (req, res) => {
     res.send('GERENCIADOR DE TAREFAS');

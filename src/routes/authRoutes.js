@@ -6,8 +6,8 @@ require('dotenv').config();
 
 router.post('/login', async (req, res) => {
     try {
-        const { email, senha } = req.body;
-        const usuario = await Usuario.buscarPorEmail(email);
+        const { nome, senha } = req.body;
+        const usuario = await Usuario.buscarPorNome(nome);
 
         if (!usuario || !(await Usuario.verificarSenha(senha, usuario.senha))) {
             return res.status(401).json({ erro: 'Credenciais inválidas' });
@@ -22,6 +22,7 @@ router.post('/login', async (req, res) => {
         res.json({ token });
     } catch (error) {
         res.status(500).json({ erro: 'Erro no servidor' });
+        console.log(error);
     }
 });
 

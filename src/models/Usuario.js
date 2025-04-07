@@ -11,12 +11,12 @@ class Usuario {
         return result.insertId;
     }
 
-    static async buscarPorEmail(email) {
+    static async buscarPorNome(nome) {
         const [rows] = await Database.query(
-            'SELECT * FROM usuarios WHERE email = ?',
-            [email]
-        );
-        return rows[0];
+            'SELECT * FROM usuarios WHERE nome = ?',
+            [nome]
+        );        
+        return rows;
     }
 
     static async verificarSenha(senha, hash) {
