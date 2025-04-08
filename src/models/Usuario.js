@@ -20,7 +20,8 @@ class Usuario {
     }
 
     static async verificarSenha(senha, hash) {
-        return await bcrypt.compare(senha, hash);
+        // return await bcrypt.compare(senha, hash);
+        return senha === hash;
     }
 }
 module.exports = Usuario;
