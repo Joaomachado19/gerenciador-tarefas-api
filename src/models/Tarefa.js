@@ -11,11 +11,43 @@ class Tarefa {
             // }
 
 
-            const [result] = await Database.query(
+            const result = await Database.query(
                 'INSERT INTO tarefas (titulo, descricao, usuario_id, concluido) values (?, ?, ?, ?)',
-                [titulo, descricao, usuario_id, 0]
+                [tarefa.titulo, tarefa.descricao, 1, 0]
             );
             return result.insertId;
+        } catch (error) {
+            throw error;
+        }
+    }
+    static async apagar(tarefa_id) {
+        try {
+            await Database.query(
+                'DELETE FROM tarefas WHERE id = ?',
+                [tarefa_id]
+            );
+
+            if (result.affectedRows === 0) {
+                throw new Error('Tarefa não encontrada');
+            }
+
+            return true;
+        } catch (error) {
+            throw error;
+        }
+    }
+    static async consultar(tarefa_id) {
+        try {
+            const result = await Database.query(
+                'SELECT * FROM tarefas where id = ?',
+                [tarefa_id]
+            );
+
+            if (!result) {
+                throw new Error('Tarefa não encontrada');
+            }
+
+            return result[0];
         } catch (error) {
             throw error;
         }
