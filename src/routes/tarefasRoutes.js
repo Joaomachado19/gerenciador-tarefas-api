@@ -41,6 +41,9 @@ const autenticar = require('../middlewares/auth');
  *             schema:
  *               type: object
  *               properties:
+ *                 msg:
+ *                   type: string
+ *                   example: "Tarefa criada!"
  *                 id:
  *                   type: integer
  *                   example: 1
@@ -51,12 +54,84 @@ const autenticar = require('../middlewares/auth');
  *       500:
  *         description: Erro interno do servidor
  */
+
 /**
  * @swagger
- * /tarefas/apagar/:id
- * 
+ * /tarefas/apagar/{id}:
+ *   delete:
+ *     tags: [Tarefas]
+ *     summary: Remove uma tarefa existente
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da tarefa a ser removida
+ *     responses:
+ *       200:
+ *         description: Tarefa removida com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *                   example: "Tarefa apagada"
+ *       401:
+ *         description: Não autorizado (token inválido ou ausente)
+ *       404:
+ *         description: Tarefa não encontrada
+ *       500:
+ *         description: Erro interno do servidor
  */
-//*
+
+/**
+ * @swagger
+ * /tarefas/consultar/{id}:
+ *   get:
+ *     tags: [Tarefas]
+ *     summary: Consulta uma tarefa específica
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da tarefa a ser consultada
+ *     responses:
+ *       200:
+ *         description: Detalhes da tarefa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 titulo:
+ *                   type: string
+ *                   example: "Fazer relatório mensal"
+ *                 descricao:
+ *                   type: string
+ *                   example: "Preparar relatório de vendas do mês"
+ *                 concluido:
+ *                   type: string
+ *                   enum: [Sim, Não]
+ *                   example: "Não"
+ *       401:
+ *         description: Não autorizado (token inválido ou ausente)
+ *       404:
+ *         description: Tarefa não encontrada
+ *       500:
+ *         description: Erro interno do servidor
+ */
 
 router.post('/criar', autenticar, async (req, res) => {
     try {
