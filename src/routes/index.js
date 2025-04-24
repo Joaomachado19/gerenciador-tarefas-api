@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const authhRoutes = require('./authRoutes');
+const authRoutes = require('./authRoutes');
 const autenticar = require('../middlewares/auth');
+const tarefasRoutes = require('../routes/tarefasRoutes');
 
-router.use('/auth', authhRoutes);
+router.use('/auth', authRoutes);
+router.use('/tarefas', tarefasRoutes);
 
 router.get('/', (req, res) => {
     res.send('GERENCIADOR DE TAREFAS');
