@@ -146,6 +146,8 @@ router.post('/criar', autenticar, async (req, res) => {
 router.post('/apagar/:id', autenticar, async (req, res) => {
     try {
         const respos = await Tarefa.apagar(req.params.id);
+        console.log(respos);
+        
         if (respos) {
             res.status(200).json({ msg: 'Tarefa apagada' });
         }

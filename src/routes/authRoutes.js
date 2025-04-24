@@ -5,7 +5,7 @@ const Usuario = require('../models/Usuario');
 require('dotenv').config();
 /**
  * @swagger
- * /login:
+ * /auth/login:
  *   post:
  *     tags:
  *       - Autenticação
