@@ -6,6 +6,7 @@ CREATE TABLE usuarios (
     nome VARCHAR(100) NOT NULL,
     senha VARCHAR(100) NOT NULL
 );
+
 CREATE TABLE tarefas (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
