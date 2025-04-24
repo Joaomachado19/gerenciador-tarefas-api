@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste da API</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .endpoint { background: #f5f5f5; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        button { padding: 8px 15px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        pre { background: #333; color: #fff; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Teste das Rotas da API</h1>
+    
+    <div class="endpoint">
+        <h2>Login</h2>
+        <input type="text" id="loginNome" placeholder="Nome" value="">
+        <input type="password" id="loginSenha" placeholder="Senha" value="">
+        <button onclick="testLogin()">Testar Login</button>
+        <pre id="loginResult"></pre>
+    </div>
+
+    <div class="endpoint">
+        <h2>Listar Tarefas</h2>
+        <input type="text" id="authToken" placeholder="Token JWT" style="width: 300px;">
+        <button onclick="listTarefas()">Listar</button>
+        <pre id="tarefasResult"></pre>
+    </div>
+
+    <script>
+        async function testLogin() {
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    nome: document.getElementById('loginNome').value,
+                    senha: document.getElementById('loginSenha').value
+                })
+            });
+            const data = await response.json();
+            document.getElementById('loginResult').textContent = JSON.stringify(data, null, 2);
+            if(data.token) {
+                document.getElementById('authToken').value = data.token;
+            }
+        }
+
+        async function listTarefas() {
+            const token = document.getElementById('authToken').value;
+            const response = await fetch('/tarefas', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const data = await response.json();
+            document.getElementById('tarefasResult').textContent = JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>
